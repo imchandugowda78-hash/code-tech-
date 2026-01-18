@@ -1,0 +1,26 @@
+from transformers import pipeline
+
+
+def summarize_text(text, max_length=150, min_length=50):
+   
+    summarizer = pipeline("summarization", model="facebook/bart-large-cnn")
+    summary = summarizer(
+        text,
+        max_length=max_length,
+        min_length=min_length,
+        do_sample=False
+    )
+    return summary[0]['summary_text']
+
+
+if __name__ == "__main__":
+    input_text = """
+    Artificial Intelligence (AI) is transforming industries by enabling machines
+    to learn from data, recognize patterns, and make decisions. AI applications
+    range from healthcare and finance to transportation and education. With the
+    rapid growth of data and computing power, AI continues to evolve and impact
+    everyday life.
+    """
+
+    print("Original Text:\n", input_text)
+    print("\nSummarized Text:\n", summarize_text(input_text))
