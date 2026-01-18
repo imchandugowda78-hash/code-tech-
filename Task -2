@@ -1,0 +1,26 @@
+import speech_recognition as sr
+def transcribe_audio(audio_file):
+   
+   recognizer = sr.Recognizer()
+
+    try:
+        with sr.AudioFile(audio_file) as source:
+            print("Listening to audio...")
+            audio_data = recognizer.record(source)
+
+        print("Transcribing...")
+        text = recognizer.recognize_google(audio_data)
+        return text
+
+    except sr.UnknownValueError:
+        return "Audio could not be understood."
+
+    except sr.RequestError as e:
+        return f"Could not request results; {e}"
+
+
+if __name__ == "__main__":
+    audio_path = "sample_audio.wav"  # Replace with your audio file
+
+    result = transcribe_audio(audio_path)
+    print("\nTranscribed Text:\n", result)
