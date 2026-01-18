@@ -1,0 +1,23 @@
+from transformers import pipeline
+text_generator = pipeline(
+    "text-generation",
+    model="gpt2"
+)
+def generate_text(prompt, max_length=150):
+    result = text_generator(
+        prompt,
+        max_length=max_length,
+        num_return_sequences=1
+    )
+    return result[0]['generated_text']
+prompts = [
+    "Artificial Intelligence in healthcare",
+    "The future of renewable energy",
+    "Importance of education"
+]
+
+for prompt in prompts:
+    print("Prompt:", prompt)
+    print(generate_text(prompt))
+    print("-" * 80)
+
